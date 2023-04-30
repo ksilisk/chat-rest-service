@@ -33,5 +33,5 @@ create table public.messages
     foreign key (user_id) references users (id),
     foreign key (chat_id) references users (id),
     foreign key (chat_id) references groups (id),
-    check ( chat_type in ('user', 'group') )
+    check ( chat_type in ('USER', 'GROUP') )
 );
