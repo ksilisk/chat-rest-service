@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Entity
 @Getter
 @Setter
@@ -22,10 +24,13 @@ public class Message {
     @NotNull
     private String text;
 
-    @NotNull
-    private ChatType chat_type;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "chat_type", nullable = false)
+    private ChatType chatType;
+
+    @NotNull
+    private Timestamp time;
 }

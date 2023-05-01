@@ -31,6 +31,6 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @OneToMany
     private Set<Message> messages;
 }
