@@ -7,30 +7,30 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.util.Set;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@Table(name = "chats")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "messages")
-public class Message {
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    private String text;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
+    @OneToMany(mappedBy = "chat")
+    private Set<Message> messages;
 
-    @NotNull
-    private Timestamp time;
+    @ManyToMany(mappedBy = "chats")
+    private Set<User> users;
+
 }

@@ -31,6 +31,12 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Message> messages;
+
+    @ManyToMany
+    @JoinTable(name = "chat_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    private Set<Chat> chats;
 }
