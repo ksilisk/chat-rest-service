@@ -4,3 +4,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/<some_db> # or your JDBC-url and DB
     username: db_username # your username
     password: db_password # your password
+  jpa:
+    show-sql: true
