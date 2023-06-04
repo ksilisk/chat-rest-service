@@ -4,8 +4,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/<some_db> # or your JDBC-url and DB
     username: db_username # your username
     password: db_password # your password
-
-config:
-  jwt:
-    secret: someKey # your secret key
-    expiration-time: 86400000 # your secret code expiration time
+  jpa:
+    show-sql: true
