@@ -1,11 +1,16 @@
 package com.ksilisk.chatservice.payload;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageDto {
+    @Min(value = 1)
     private Long id;
 
     @NotEmpty(message = "Message text shouldn't be null or empty")
