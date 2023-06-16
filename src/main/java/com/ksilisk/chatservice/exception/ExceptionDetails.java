@@ -3,7 +3,7 @@ package com.ksilisk.chatservice.exception;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ExceptionDetails {
+class ExceptionDetails {
     private final long timestamp;
     private final int statusCode;
     private final String message;

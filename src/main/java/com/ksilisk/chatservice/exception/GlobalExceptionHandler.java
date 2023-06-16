@@ -17,8 +17,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseBody
     public ExceptionDetails handleResourceNotFound(ResourceNotFoundException ex,
                                                    WebRequest webRequest) {
-        log.warn("Handled resource not found exception, reason: {}", ex.getMessage());
+        log.warn("Handled resource not found exception", ex);
         return new ExceptionDetails(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ExceptionDetails handleAnyException(Exception ex, WebRequest webRequest) {
+        log.warn("Handled exception", ex);
+        return new ExceptionDetails(System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 ex.getMessage(), webRequest.getDescription(false));
     }
 }
