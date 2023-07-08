@@ -23,11 +23,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler
+    @ResponseBody
+    public ExceptionDetails handleApiException(Exception ex, WebRequest webRequest) {
+        log.warn("Handled api exception. Description: {}", webRequest.getDescription(false), ex);
+        return new ExceptionDetails(System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ex.getMessage(), webRequest.getDescription(false));
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ExceptionDetails handleAnyException(Exception ex, WebRequest webRequest) {
-        log.warn("Handled exception", ex);
+        log.warn("Handled any exception. Description: {}", webRequest.getDescription(false), ex);
         return new ExceptionDetails(System.currentTimeMillis(), HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ex.getMessage(), webRequest.getDescription(false));
+                HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), webRequest.getDescription(false));
     }
 }

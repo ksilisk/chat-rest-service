@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.service.impl;
 
 import com.ksilisk.chatservice.entity.User;
-import com.ksilisk.chatservice.exception.CustomApiException;
+import com.ksilisk.chatservice.exception.ApiException;
 import com.ksilisk.chatservice.payload.RegisterDto;
 import com.ksilisk.chatservice.repository.UserRepository;
 import com.ksilisk.chatservice.service.RegisterService;
@@ -22,7 +22,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public String register(RegisterDto registerDto) {
         if (userRepository.existsByUsernameOrEmail(registerDto.getUsername(), registerDto.getEmail())) {
-            throw new CustomApiException("User with username: " + registerDto.getUsername() + "or email: " + registerDto.getEmail() + " already exists");
+            throw new ApiException("User already exists");
         }
         String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
         registerDto.setPassword(encodedPassword);
