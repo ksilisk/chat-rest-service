@@ -1,5 +1,6 @@
 package com.ksilisk.chatservice.controller;
 
+import com.ksilisk.chatservice.payload.JwtAuthResponse;
 import com.ksilisk.chatservice.payload.RegisterDto;
 import com.ksilisk.chatservice.service.RegisterService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,8 @@ public class RegistrationController {
     private final RegisterService registerService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterDto register) {
-        return registerService.register(register);
+    public JwtAuthResponse register(@RequestBody RegisterDto register) {
+        String token = registerService.register(register);
+        return new JwtAuthResponse(token);
     }
 }

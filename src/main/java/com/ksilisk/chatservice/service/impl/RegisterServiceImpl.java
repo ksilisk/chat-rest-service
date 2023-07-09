@@ -4,6 +4,7 @@ import com.ksilisk.chatservice.entity.User;
 import com.ksilisk.chatservice.exception.ApiException;
 import com.ksilisk.chatservice.payload.RegisterDto;
 import com.ksilisk.chatservice.repository.UserRepository;
+import com.ksilisk.chatservice.security.TokenProvider;
 import com.ksilisk.chatservice.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final ModelMapper mapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
     @Override
     public String register(RegisterDto registerDto) {
@@ -28,6 +30,6 @@ public class RegisterServiceImpl implements RegisterService {
         registerDto.setPassword(encodedPassword);
         User user = mapper.map(registerDto, User.class);
         userRepository.save(user);
-        return "User registered successfully";
+        return tokenProvider.create(registerDto.getUsername());
     }
 }

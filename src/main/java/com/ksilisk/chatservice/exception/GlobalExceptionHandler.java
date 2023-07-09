@@ -12,18 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseBody
-    public ExceptionDetails handleResourceNotFound(ResourceNotFoundException ex,
-                                                   WebRequest webRequest) {
-        log.warn("Handled resource not found exception", ex);
-        return new ExceptionDetails(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(),
-                ex.getMessage(), webRequest.getDescription(false));
-    }
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler
+    @ExceptionHandler(ApiException.class)
     @ResponseBody
     public ExceptionDetails handleApiException(Exception ex, WebRequest webRequest) {
         log.warn("Handled api exception. Description: {}", webRequest.getDescription(false), ex);
