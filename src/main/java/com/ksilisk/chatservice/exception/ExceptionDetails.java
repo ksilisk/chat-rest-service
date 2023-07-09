@@ -1,9 +1,11 @@
 package com.ksilisk.chatservice.exception;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
-public class ExceptionDetails {
+class ExceptionDetails {
     private final long timestamp;
     private final int statusCode;
     private final String message;

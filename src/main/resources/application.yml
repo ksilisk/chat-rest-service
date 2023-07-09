@@ -1,3 +1,8 @@
+config:
+  jwt:
+    secret: someSecret # jwt secret (size >= 256 bits)
+    expiration-time-millis: 600000 # token expiration time (min value: 600000, default value: 600000)
+
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver # or your DB driver
