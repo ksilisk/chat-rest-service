@@ -1,10 +1,10 @@
 package com.ksilisk.chatservice.exception;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 class ExceptionDetails {
     private final long timestamp;
     private final int statusCode;
