@@ -3,6 +3,7 @@ package com.ksilisk.chatservice.controller;
 import com.ksilisk.chatservice.payload.JwtAuthResponse;
 import com.ksilisk.chatservice.payload.RegisterDto;
 import com.ksilisk.chatservice.service.RegisterService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ public class RegistrationController {
     private final RegisterService registerService;
 
     @PostMapping("/register")
-    public JwtAuthResponse register(@RequestBody RegisterDto register) {
+    public JwtAuthResponse register(@RequestBody @Valid RegisterDto register) {
         String token = registerService.register(register);
         return new JwtAuthResponse(token);
     }

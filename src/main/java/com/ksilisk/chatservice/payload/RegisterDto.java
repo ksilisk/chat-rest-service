@@ -7,8 +7,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class RegisterDto {
     @NotEmpty
     @Size(min = 5, message = "Username should have at least 5 characters")
