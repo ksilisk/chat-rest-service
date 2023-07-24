@@ -30,5 +30,4 @@ public class Chat {
 
     @ManyToMany(mappedBy = "chats")
     private Set<User> users;
-
 }
