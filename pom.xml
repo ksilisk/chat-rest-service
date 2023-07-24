@@ -8,14 +8,19 @@
         <version>3.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.ksilisk</groupId>
     <artifactId>chat-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>chat-service</name>
+
     <description>chat-service</description>
+
     <properties>
         <java.version>17</java.version>
+        <start-class>com.ksilisk.chatservice.ChatServiceApplication</start-class>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,16 +98,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
