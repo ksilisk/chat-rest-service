@@ -23,7 +23,7 @@ public class TokenProviderImpl implements TokenProvider {
                 .issuedAt(Instant.now())
                 .expiresAt(Instant.now().plusMillis(jwtConfig.getExpirationTimeMillis()))
                 .subject(subject)
-                .claim("scope", "some") // TODO fix this: "some" value is incorrect solution
+                .claim("scope", "some") //  TODO fix this: "some" value is incorrect solution
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims)).getTokenValue();
     }

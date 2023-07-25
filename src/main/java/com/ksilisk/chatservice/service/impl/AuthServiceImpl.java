@@ -1,6 +1,6 @@
 package com.ksilisk.chatservice.service.impl;
 
-import com.ksilisk.chatservice.payload.LoginDto;
+import com.ksilisk.chatservice.payload.AuthInfo;
 import com.ksilisk.chatservice.security.TokenProvider;
 import com.ksilisk.chatservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class AuthServiceImpl implements AuthService {
     private final TokenProvider tokenProvider;
 
     @Override
-    public String login(LoginDto loginDto) {
+    public String auth(AuthInfo authInfo) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsernameOrEmail(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(authInfo.getUsernameOrEmail(), authInfo.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         return tokenProvider.create(authentication.getName());
     }

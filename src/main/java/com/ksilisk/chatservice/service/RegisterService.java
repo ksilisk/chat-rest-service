@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.service;
 
-import com.ksilisk.chatservice.payload.RegisterDto;
+import com.ksilisk.chatservice.payload.RegisterInfo;
 
 public interface RegisterService {
-    String register(RegisterDto registerDto);
+    String register(RegisterInfo registerInfo);
 }

@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.controller;
 
 import com.ksilisk.chatservice.payload.JwtAuthResponse;
-import com.ksilisk.chatservice.payload.LoginDto;
+import com.ksilisk.chatservice.payload.AuthInfo;
 import com.ksilisk.chatservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/auth")
-    public JwtAuthResponse auth(@RequestBody @Valid LoginDto loginDto) {
-        String token = authService.login(loginDto);
+    public JwtAuthResponse auth(@RequestBody @Valid AuthInfo authInfo) {
+        String token = authService.auth(authInfo);
         return new JwtAuthResponse(token);
     }
 }

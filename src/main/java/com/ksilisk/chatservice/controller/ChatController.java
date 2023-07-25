@@ -1,12 +1,11 @@
 package com.ksilisk.chatservice.controller;
 
 import com.ksilisk.chatservice.payload.ChatDto;
+import com.ksilisk.chatservice.payload.CreateChatDto;
 import com.ksilisk.chatservice.service.ChatService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Set;
@@ -23,7 +22,7 @@ public class ChatController {
     }
 
     @PostMapping("/create")
-    public void createChat() {
-        // TODO implement create chat endpoint
+    public void createChat(@RequestBody @Valid CreateChatDto chatDto, Principal principal) {
+        chatService.createChat(chatDto, principal.getName());
     }
 }

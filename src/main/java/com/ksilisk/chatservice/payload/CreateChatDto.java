@@ -4,12 +4,14 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
-public class LoginDto {
+public class CreateChatDto {
     @NotEmpty
-    private String usernameOrEmail;
+    private String name;
 
     @NotEmpty
-    private String password;
+    private Set<Long> userIds;
 }

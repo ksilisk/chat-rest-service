@@ -2,6 +2,7 @@ package com.ksilisk.chatservice.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +25,7 @@ public class User {
     @NotNull
     private String username;
 
+    @Email
     @NotNull
     private String email;
 

@@ -9,6 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
 @ToString
 @Table(name = "chats")
 @AllArgsConstructor

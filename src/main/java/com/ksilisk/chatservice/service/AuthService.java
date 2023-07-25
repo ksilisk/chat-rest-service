@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.service;
 
-import com.ksilisk.chatservice.payload.LoginDto;
+import com.ksilisk.chatservice.payload.AuthInfo;
 
 public interface AuthService {
-    String login(LoginDto loginDto);
+    String auth(AuthInfo authInfo);
 }
