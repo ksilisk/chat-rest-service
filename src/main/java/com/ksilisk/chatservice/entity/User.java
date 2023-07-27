@@ -15,6 +15,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"username", "id", "email"})
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "email"})})
 public class User {
@@ -35,9 +36,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Message> messages;
 
-    @ManyToMany
-    @JoinTable(name = "chat_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    @ManyToMany(mappedBy = "users")
     private Set<Chat> chats;
 }

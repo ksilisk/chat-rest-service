@@ -42,12 +42,29 @@ public class ChatServiceImpl implements ChatService {
                 .map(id -> userRepository.findUserById(id)
                         .orElseThrow(() -> new ApiException("User with id: " + id + "not found")))
                 .collect(toUnmodifiableSet());
-        Chat chat = Chat.builder()
+        chatRepository.save(Chat.builder()
                 .name(chatDto.getName())
                 .users(users)
-                .owner(owner).build();
+                .owner(owner).build());
+    }
+
+    @Override
+    public synchronized void deleteChat(long id, String username) {
+        Chat chat = chatRepository.findChatById(id)
+                .orElseThrow(() -> new ApiException("Chat not found"));
+        User user = userRepository.findUserByUsername(username)
+                        .orElseThrow(() -> new ApiException("User not found"));
+        chat.getUsers().remove(user);
+        setNewOwnerIfNeed(chat);
         chatRepository.save(chat);
-        users.forEach(user -> user.getChats().add(chat));
-        userRepository.saveAll(users);
+    }
+
+    private void setNewOwnerIfNeed(Chat chat) {
+        if (!chat.getUsers().contains(chat.getOwner()) && chat.getUsers().size() > 0) {
+            User newOwner = chat.getUsers().stream()
+                    .findAny()
+                    .orElseThrow(() -> new ApiException("New owner not found"));
+            chat.setOwner(newOwner);
+        }
     }
 }

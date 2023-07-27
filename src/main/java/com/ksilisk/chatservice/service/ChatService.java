@@ -9,4 +9,6 @@ public interface ChatService {
     Set<ChatDto> getChatsForUser(String username);
 
     void createChat(CreateChatDto chatDto, String ownerUsername);
+
+    void deleteChat(long id, String username);
 }

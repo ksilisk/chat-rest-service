@@ -16,7 +16,7 @@ import java.util.Set;
 public class ChatController {
     private final ChatService chatService;
 
-    @GetMapping("/my")
+    @GetMapping
     public Set<ChatDto> getChats(Principal principal) {
         return chatService.getChatsForUser(principal.getName());
     }
@@ -24,5 +24,10 @@ public class ChatController {
     @PostMapping("/create")
     public void createChat(@RequestBody @Valid CreateChatDto chatDto, Principal principal) {
         chatService.createChat(chatDto, principal.getName());
+    }
+
+    @GetMapping("/delete/{chatId}")
+    public void deleteChat(@PathVariable long chatId, Principal principal) {
+        chatService.deleteChat(chatId, principal.getName());
     }
 }

@@ -12,8 +12,9 @@ import java.util.Set;
 @Builder
 @ToString
 @Table(name = "chats")
-@AllArgsConstructor
+@AllArgsConstructor()
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,9 @@ public class Chat {
     @OneToMany(mappedBy = "chat")
     private Set<Message> messages;
 
-    @ManyToMany(mappedBy = "chats")
+    @ManyToMany
+    @JoinTable(name = "chat_users",
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
 }
