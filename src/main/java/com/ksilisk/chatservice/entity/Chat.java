@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.Set;
@@ -18,17 +18,11 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     @OneToOne
     private User owner;
-
-    @OneToMany
-    @JoinTable(name = "chat_messages",
-            joinColumns = @JoinColumn(name = "chat_id"),
-            inverseJoinColumns = @JoinColumn(name = "message_id"))
-    private Set<Message> messages;
 
     @ManyToMany
     @JoinTable(name = "chat_users",

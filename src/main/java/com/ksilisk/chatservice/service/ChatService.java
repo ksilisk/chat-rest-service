@@ -6,7 +6,7 @@ import com.ksilisk.chatservice.payload.CreateChatDto;
 import java.util.Set;
 
 public interface ChatService {
-    Set<ChatDto> getChatsForUser(String username);
+    Set<ChatDto> getChats(String username);
 
     void createChat(CreateChatDto chatDto, String ownerUsername);
 

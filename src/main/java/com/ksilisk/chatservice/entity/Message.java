@@ -1,6 +1,7 @@
 package com.ksilisk.chatservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -18,13 +19,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String text;
 
     @OneToOne
     private User user;
 
-    @ManyToOne
+    @OneToOne
     private Chat chat;
 
     @NotNull

@@ -3,7 +3,6 @@
  */
 drop table if exists public.messages;
 drop table if exists public.chat_users;
-drop table if exists public.chat_messages;
 drop table if exists public.chats;
 drop table if exists public.users;
 
@@ -49,12 +48,4 @@ create table public.chat_users
     user_id bigint not null,
     foreign key (chat_id) references chats (id),
     foreign key (user_id) references users (id)
-);
-
-create table public.chat_messages
-(
-    chat_id bigint not null,
-    message_id bigint not null,
-    foreign key (chat_id) references chats (id),
-    foreign key (message_id) references messages (id)
 );

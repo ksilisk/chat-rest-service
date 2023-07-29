@@ -3,7 +3,7 @@ package com.ksilisk.chatservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.Set;
@@ -21,14 +21,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String username;
 
     @Email
-    @NotNull
     private String email;
 
-    @NotNull
+    @NotBlank
     private String password;
 
     @ManyToMany(mappedBy = "users")

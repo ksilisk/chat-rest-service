@@ -18,7 +18,7 @@ public class ChatController {
 
     @GetMapping
     public Set<ChatDto> getChats(Principal principal) {
-        return chatService.getChatsForUser(principal.getName());
+        return chatService.getChats(principal.getName());
     }
 
     @PostMapping("/create")

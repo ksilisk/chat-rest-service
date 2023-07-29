@@ -26,7 +26,7 @@ public class ChatServiceImpl implements ChatService {
     private final ChatRepository chatRepository;
     private final ModelMapper mm;
 
-    public Set<ChatDto> getChatsForUser(String username) {
+    public Set<ChatDto> getChats(String username) {
         User user = userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User info not found"));
         return user.getChats().stream()
@@ -53,7 +53,7 @@ public class ChatServiceImpl implements ChatService {
         Chat chat = chatRepository.findChatById(id)
                 .orElseThrow(() -> new ApiException("Chat not found"));
         User user = userRepository.findUserByUsername(username)
-                        .orElseThrow(() -> new ApiException("User not found"));
+                .orElseThrow(() -> new ApiException("User not found"));
         chat.getUsers().remove(user);
         setNewOwnerIfNeed(chat);
         chatRepository.save(chat);

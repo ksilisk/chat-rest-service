@@ -37,7 +37,7 @@ public class MessageServiceImpl implements MessageService {
         if (!chat.getUsers().contains(user)) {
             throw new ApiException("Chat not found");
         }
-        return chat.getMessages().stream()
+        return messageRepository.findAllByChatId(chatId).stream()
                 .map(MessageDto::from)
                 .collect(toUnmodifiableSet());
     }
@@ -51,14 +51,12 @@ public class MessageServiceImpl implements MessageService {
         if (!user.getChats().contains(chat)) {
             throw new ApiException("Chat not found");
         }
-        Message message1 = Message.builder()
+        Message dbMessage = Message.builder()
                 .chat(chat)
                 .user(user)
                 .time(Timestamp.from(Instant.now()))
                 .text(message.getText())
                 .build();
-        messageRepository.save(message1);
-        chat.getMessages().add(message1);
-        chatRepository.save(chat);
+        messageRepository.save(dbMessage);
     }
 }
