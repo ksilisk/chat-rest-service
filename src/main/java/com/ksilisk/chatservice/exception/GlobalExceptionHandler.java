@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
 @ControllerAdvice
@@ -28,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .build();
     }
 
-    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(ApiException.class)
     @ResponseBody
     public ExceptionDetails handleApiException(Exception ex, WebRequest webRequest) {
@@ -37,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .timestamp(System.currentTimeMillis())
                 .message(ex.getMessage())
                 .details(webRequest.getDescription(false))
-                .statusCode(INTERNAL_SERVER_ERROR.value())
+                .statusCode(BAD_REQUEST.value())
                 .build();
     }
 

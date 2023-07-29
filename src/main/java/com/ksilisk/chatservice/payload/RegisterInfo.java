@@ -8,12 +8,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterDto {
+public class RegisterInfo {
     @NotEmpty
     @Size(min = 5, message = "Username should have at least 5 characters")
     private String username;
 
     @NotEmpty
+    @Size(min = 5, message = "Password should have at least 5 characters")
     private String password;
 
     @Email

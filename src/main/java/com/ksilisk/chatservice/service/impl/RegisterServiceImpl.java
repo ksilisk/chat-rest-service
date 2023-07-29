@@ -2,7 +2,7 @@ package com.ksilisk.chatservice.service.impl;
 
 import com.ksilisk.chatservice.entity.User;
 import com.ksilisk.chatservice.exception.ApiException;
-import com.ksilisk.chatservice.payload.RegisterDto;
+import com.ksilisk.chatservice.payload.RegisterInfo;
 import com.ksilisk.chatservice.repository.UserRepository;
 import com.ksilisk.chatservice.security.TokenProvider;
 import com.ksilisk.chatservice.service.RegisterService;
@@ -22,14 +22,14 @@ public class RegisterServiceImpl implements RegisterService {
     private final TokenProvider tokenProvider;
 
     @Override
-    public String register(RegisterDto registerDto) {
-        if (userRepository.existsByUsernameOrEmail(registerDto.getUsername(), registerDto.getEmail())) {
+    public String register(RegisterInfo registerInfo) {
+        if (userRepository.existsByUsernameOrEmail(registerInfo.getUsername(), registerInfo.getEmail())) {
             throw new ApiException("User already exists");
         }
-        String encodedPassword = passwordEncoder.encode(registerDto.getPassword());
-        registerDto.setPassword(encodedPassword);
-        User user = mapper.map(registerDto, User.class);
+        String encodedPassword = passwordEncoder.encode(registerInfo.getPassword());
+        registerInfo.setPassword(encodedPassword);
+        User user = mapper.map(registerInfo, User.class);
         userRepository.save(user);
-        return tokenProvider.create(registerDto.getUsername());
+        return tokenProvider.create(registerInfo.getUsername());
     }
 }

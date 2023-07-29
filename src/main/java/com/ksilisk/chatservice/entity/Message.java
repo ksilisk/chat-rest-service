@@ -1,6 +1,7 @@
 package com.ksilisk.chatservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "messages")
@@ -18,15 +19,13 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
+    @OneToOne
     private Chat chat;
 
     @NotNull

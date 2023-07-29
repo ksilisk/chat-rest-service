@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.controller;
 
 import com.ksilisk.chatservice.payload.JwtAuthResponse;
-import com.ksilisk.chatservice.payload.RegisterDto;
+import com.ksilisk.chatservice.payload.RegisterInfo;
 import com.ksilisk.chatservice.service.RegisterService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class RegistrationController {
     private final RegisterService registerService;
 
     @PostMapping("/register")
-    public JwtAuthResponse register(@RequestBody @Valid RegisterDto register) {
+    public JwtAuthResponse register(@RequestBody @Valid RegisterInfo register) {
         String token = registerService.register(register);
         return new JwtAuthResponse(token);
     }

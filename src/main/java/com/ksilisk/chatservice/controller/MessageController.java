@@ -1,13 +1,13 @@
 package com.ksilisk.chatservice.controller;
 
 import com.ksilisk.chatservice.payload.MessageDto;
+import com.ksilisk.chatservice.payload.SendMessageDto;
 import com.ksilisk.chatservice.service.MessageService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Set;
 
 @RestController
@@ -17,7 +17,12 @@ public class MessageController {
     private final MessageService messageService;
 
     @GetMapping("/{chatId}")
-    public Set<MessageDto> getMessagesForChat(@PathVariable long chatId) {
-        return messageService.getMessagesForChat(chatId);
+    public Set<MessageDto> getMessagesForChat(@PathVariable long chatId, Principal principal) {
+        return messageService.getMessagesForChat(chatId, principal.getName());
+    }
+
+    @PostMapping("/send")
+    public void sendMessage(@RequestBody @Valid SendMessageDto messageDto, Principal principal) {
+        messageService.send(messageDto, principal.getName());
     }
 }

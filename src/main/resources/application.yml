@@ -1,4 +1,6 @@
 config:
+  cleaner:
+    empty-chats-clean-delay: 6767
   jwt:
     secret: someSecret # jwt secret (size >= 256 bits)
     expiration-time-millis: 600000 # token expiration time (min value: 600000, default value: 600000)
