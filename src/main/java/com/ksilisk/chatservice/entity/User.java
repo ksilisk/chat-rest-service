@@ -12,10 +12,8 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"username", "id", "email"})
 @Table(name = "users",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username", "email"})})
 public class User {
@@ -32,9 +30,6 @@ public class User {
 
     @NotNull
     private String password;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Message> messages;
 
     @ManyToMany(mappedBy = "users")
     private Set<Chat> chats;

@@ -10,11 +10,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@ToString
 @Table(name = "chats")
-@AllArgsConstructor()
+@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +22,12 @@ public class Chat {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "chat")
+    @OneToMany
+    @JoinTable(name = "chat_messages",
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "message_id"))
     private Set<Message> messages;
 
     @ManyToMany

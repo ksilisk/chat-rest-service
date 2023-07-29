@@ -10,10 +10,8 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Table(name = "messages")
 public class Message {
     @Id
@@ -23,12 +21,10 @@ public class Message {
     @NotNull
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id")
     private Chat chat;
 
     @NotNull

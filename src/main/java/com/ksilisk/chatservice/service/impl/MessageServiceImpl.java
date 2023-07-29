@@ -25,8 +25,8 @@ import static java.util.stream.Collectors.toUnmodifiableSet;
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
     private final ChatRepository chatRepository;
-    private final MessageRepository messageRepository;
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
 
     @Override
     public Set<MessageDto> getMessagesForChat(long chatId, String username) {
@@ -51,11 +51,14 @@ public class MessageServiceImpl implements MessageService {
         if (!user.getChats().contains(chat)) {
             throw new ApiException("Chat not found");
         }
-        messageRepository.save(Message.builder()
+        Message message1 = Message.builder()
                 .chat(chat)
                 .user(user)
                 .time(Timestamp.from(Instant.now()))
                 .text(message.getText())
-                .build());
+                .build();
+        messageRepository.save(message1);
+        chat.getMessages().add(message1);
+        chatRepository.save(chat);
     }
 }
