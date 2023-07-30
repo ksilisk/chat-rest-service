@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "config.jwt")
 public class JwtConfig {
-    private static final long DEFAULT_EXPIRATION_TIME_MILLIS = 1000 * 60 * 60;
+    private static final long DEFAULT_EXPIRATION_TIME_SECONDS = 60 * 60;
 
     @NotEmpty
     private String secret;
 
-    @Min(600000)
-    private long expirationTimeMillis = DEFAULT_EXPIRATION_TIME_MILLIS;
+    @Min(300)
+    private long expirationTimeSeconds = DEFAULT_EXPIRATION_TIME_SECONDS;
 }

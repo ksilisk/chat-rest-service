@@ -1,9 +1,9 @@
 config:
   cleaner:
-    empty-chats-clean-delay: 6767
+    empty-chats-clean-delay: 3600 # delay for clean empty chats in db (time unit - seconds)
   jwt:
     secret: someSecret # jwt secret (size >= 256 bits)
-    expiration-time-millis: 600000 # token expiration time (min value: 600000, default value: 600000)
+    expiration-time-seconds: 600000 # token expiration time (min value: 300, default value: 3600)
 
 server:
   port: 8080 # the port on which the application will run

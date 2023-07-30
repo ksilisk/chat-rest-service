@@ -2,13 +2,14 @@ package com.ksilisk.chatservice.service;
 
 import com.ksilisk.chatservice.payload.ChatDto;
 import com.ksilisk.chatservice.payload.CreateChatDto;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 import java.util.Set;
 
 public interface ChatService {
-    Set<ChatDto> getChats(String username);
+    Set<ChatDto> getChats(JwtAuthenticationToken jwtToken);
 
-    void createChat(CreateChatDto chatDto, String ownerUsername);
+    void createChat(CreateChatDto chatDto, JwtAuthenticationToken jwtToken);
 
-    void deleteChat(long id, String username);
+    void deleteChat(long id, JwtAuthenticationToken jwtToken);
 }
