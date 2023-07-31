@@ -9,15 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class MessageDto {
+public class MessageInfo {
     private long id;
     private String text;
     private long userId;
     private long chatId;
     private long time;
 
-    public static MessageDto from(Message message) {
-        return new MessageDto(message.getId(), message.getText(), message.getUser().getId(),
+    public static MessageInfo from(Message message) {
+        return new MessageInfo(message.getId(), message.getText(), message.getUser().getId(),
                 message.getChat().getId(), message.getTime().getTime());
     }
 }

@@ -4,7 +4,7 @@ import com.ksilisk.chatservice.entity.Chat;
 import com.ksilisk.chatservice.entity.Message;
 import com.ksilisk.chatservice.entity.User;
 import com.ksilisk.chatservice.exception.ApiException;
-import com.ksilisk.chatservice.payload.MessageDto;
+import com.ksilisk.chatservice.payload.MessageInfo;
 import com.ksilisk.chatservice.payload.SendMessageDto;
 import com.ksilisk.chatservice.repository.ChatRepository;
 import com.ksilisk.chatservice.repository.MessageRepository;
@@ -12,13 +12,11 @@ import com.ksilisk.chatservice.repository.UserRepository;
 import com.ksilisk.chatservice.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.Set;
-
-import static java.util.stream.Collectors.toUnmodifiableSet;
 
 @Slf4j
 @Service
@@ -29,22 +27,21 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
 
     @Override
-    public Set<MessageDto> getMessagesForChat(long chatId, String username) {
-        User user = userRepository.findUserByUsername(username)
+    public MessageInfo getMessage(long messageId, JwtAuthenticationToken authenticationToken) {
+        User user = userRepository.findUserByUsername(authenticationToken.getName())
                 .orElseThrow(() -> new ApiException("User not found"));
-        Chat chat = chatRepository.findChatById(chatId)
+        Chat chat = chatRepository.findChatById(messageId)
                 .orElseThrow(() -> new ApiException("Chat not found"));
         if (!chat.getUsers().contains(user)) {
             throw new ApiException("Chat not found");
         }
-        return messageRepository.findAllByChatId(chatId).stream()
-                .map(MessageDto::from)
-                .collect(toUnmodifiableSet());
+        return MessageInfo.from(messageRepository.findMessageById(messageId)
+                .orElseThrow(() -> new ApiException("Message not found")));
     }
 
     @Override
-    public void send(SendMessageDto message, String ownerUsername) {
-        User user = userRepository.findUserByUsername(ownerUsername)
+    public void send(SendMessageDto message, JwtAuthenticationToken authenticationToken) {
+        User user = userRepository.findUserByUsername(authenticationToken.getName())
                 .orElseThrow(() -> new ApiException("User not found"));
         Chat chat = chatRepository.findChatById(message.getChatId())
                 .orElseThrow(() -> new ApiException("Chat not found"));
@@ -58,5 +55,10 @@ public class MessageServiceImpl implements MessageService {
                 .text(message.getText())
                 .build();
         messageRepository.save(dbMessage);
+    }
+
+    @Override
+    public void deleteMessage(long messageId, JwtAuthenticationToken authenticationToken) {
+        // TODO implement this;
     }
 }

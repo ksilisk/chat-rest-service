@@ -13,18 +13,21 @@ import java.time.Instant;
 @Component
 @RequiredArgsConstructor
 public class TokenProviderImpl implements TokenProvider {
+    private static final String ISSUER = "KsiliskRestService";
+    private static final JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
+
     private final JwtConfig jwtConfig;
     private final JwtEncoder jwtEncoder;
 
     @Override
-    public String create(String subject) {
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("self")
+    public String create(String subject, Long userId) {
+        JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
+                .issuer(ISSUER)
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plusMillis(jwtConfig.getExpirationTimeMillis()))
+                .expiresAt(Instant.now().plusMillis(jwtConfig.getExpirationTimeSeconds()))
                 .subject(subject)
-                .claim("scope", "some") //  TODO fix this: "some" value is incorrect solution
+                .claim("userId", userId)
                 .build();
-        return jwtEncoder.encode(JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims)).getTokenValue();
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, jwtClaimsSet)).getTokenValue();
     }
 }

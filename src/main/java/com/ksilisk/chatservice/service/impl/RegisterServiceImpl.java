@@ -30,6 +30,6 @@ public class RegisterServiceImpl implements RegisterService {
         registerInfo.setPassword(encodedPassword);
         User user = mapper.map(registerInfo, User.class);
         userRepository.save(user);
-        return tokenProvider.create(registerInfo.getUsername());
+        return tokenProvider.create(registerInfo.getUsername(), user.getId());
     }
 }
