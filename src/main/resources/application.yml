@@ -16,3 +16,10 @@ spring:
     password: db_password # your password
   jpa:
     show-sql: true
+
+springdoc:
+  paths-to-match: /api/v1/**
+  swagger-ui:
+    path: /docs/swagger-ui.html
+  api-docs:
+    path: /docs/api-docs

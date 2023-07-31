@@ -1,7 +1,7 @@
 package com.ksilisk.chatservice.security;
 
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import com.nimbusds.jose.KeyLengthException;
+import com.nimbusds.jose.crypto.MACSigner;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -25,6 +25,10 @@ public class JwtConfig {
     private long expirationTimeSeconds = DEFAULT_EXPIRATION_TIME_SECONDS;
 
     public SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        try {
+            return new MACSigner(secret).getSecretKey();
+        } catch (KeyLengthException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

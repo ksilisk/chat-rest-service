@@ -4,7 +4,7 @@ import com.ksilisk.chatservice.entity.Chat;
 import com.ksilisk.chatservice.entity.User;
 import com.ksilisk.chatservice.exception.ApiException;
 import com.ksilisk.chatservice.exception.ResourceNotFoundException;
-import com.ksilisk.chatservice.payload.ChatDto;
+import com.ksilisk.chatservice.payload.ChatInfo;
 import com.ksilisk.chatservice.payload.CreateChatDto;
 import com.ksilisk.chatservice.repository.ChatRepository;
 import com.ksilisk.chatservice.repository.UserRepository;
@@ -27,11 +27,11 @@ public class ChatServiceImpl implements ChatService {
     private final ChatRepository chatRepository;
     private final ModelMapper mm;
 
-    public Set<ChatDto> getChats(JwtAuthenticationToken jwtToken) {
+    public Set<ChatInfo> getChats(JwtAuthenticationToken jwtToken) {
         User user = userRepository.findUserByUsername(jwtToken.getName())
                 .orElseThrow(() -> new ResourceNotFoundException("User info not found"));
         return user.getChats().stream()
-                .map(chat -> mm.map(chat, ChatDto.class))
+                .map(chat -> mm.map(chat, ChatInfo.class))
                 .collect(toUnmodifiableSet());
     }
 
@@ -58,6 +58,12 @@ public class ChatServiceImpl implements ChatService {
         chat.getUsers().remove(user);
         setNewOwnerIfNeed(chat);
         chatRepository.save(chat);
+    }
+
+    @Override
+    public ChatInfo getChat(long id, JwtAuthenticationToken authenticationToken) {
+        // TODO implement this
+        return null;
     }
 
     private void setNewOwnerIfNeed(Chat chat) {

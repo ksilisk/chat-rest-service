@@ -1,6 +1,6 @@
 package com.ksilisk.chatservice.controller;
 
-import com.ksilisk.chatservice.payload.ChatDto;
+import com.ksilisk.chatservice.payload.ChatInfo;
 import com.ksilisk.chatservice.payload.CreateChatDto;
 import com.ksilisk.chatservice.service.ChatService;
 import jakarta.validation.Valid;
@@ -17,16 +17,21 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping
-    public Set<ChatDto> getChats(JwtAuthenticationToken authenticationToken) {
+    public Set<ChatInfo> getChats(JwtAuthenticationToken authenticationToken) {
         return chatService.getChats(authenticationToken);
     }
 
-    @PostMapping("/create")
+    @GetMapping("/{chatId}")
+    public ChatInfo getChat(@PathVariable long chatId, JwtAuthenticationToken authenticationToken) {
+        return chatService.getChat(chatId, authenticationToken);
+    }
+
+    @PostMapping
     public void createChat(@RequestBody @Valid CreateChatDto chatDto, JwtAuthenticationToken authenticationToken) {
         chatService.createChat(chatDto, authenticationToken);
     }
 
-    @GetMapping("/delete/{chatId}")
+    @DeleteMapping("/{chatId}")
     public void deleteChat(@PathVariable long chatId, JwtAuthenticationToken authenticationToken) {
         chatService.deleteChat(chatId, authenticationToken);
     }
