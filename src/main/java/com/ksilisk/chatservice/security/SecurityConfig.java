@@ -1,13 +1,6 @@
 package com.ksilisk.chatservice.security;
 
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.KeyUse;
-import com.nimbusds.jose.jwk.OctetSequenceKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.util.Base64URL;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -21,7 +14,6 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.crypto.SecretKey;
 import java.time.Duration;
 
 @Configuration
@@ -35,14 +27,12 @@ public class SecurityConfig {
 
     @Bean
     public JwtEncoder jwtEncoder(JwtConfig jwtConfig) {
-        JWK jwk = new OctetSequenceKey(new Base64URL(jwtConfig.getSecret()), KeyUse.SIGNATURE, null, null, null, null, null, null, null, null);
-        return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(jwk)));
+        return new NimbusJwtEncoder(new ImmutableSecret<>(jwtConfig.getSecretKey()));
     }
 
     @Bean
     public JwtDecoder jwtDecoder(JwtConfig jwtConfig, JwtTimestampValidator jwtTimestampValidator) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtConfig.getSecret()));
-        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(secretKey)
+        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(jwtConfig.getSecretKey())
                 .macAlgorithm(MacAlgorithm.HS256).build();
         jwtDecoder.setJwtValidator(jwtTimestampValidator);
         return jwtDecoder;
