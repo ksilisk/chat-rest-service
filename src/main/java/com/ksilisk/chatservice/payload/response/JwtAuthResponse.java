@@ -1,4 +1,4 @@
-package com.ksilisk.chatservice.payload;
+package com.ksilisk.chatservice.payload.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

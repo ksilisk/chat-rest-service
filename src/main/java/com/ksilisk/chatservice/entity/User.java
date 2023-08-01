@@ -30,6 +30,6 @@ public class User {
     @NotBlank
     private String password;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Chat> chats;
 }

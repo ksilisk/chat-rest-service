@@ -2,7 +2,7 @@ package com.ksilisk.chatservice.service.impl;
 
 import com.ksilisk.chatservice.entity.User;
 import com.ksilisk.chatservice.exception.ApiException;
-import com.ksilisk.chatservice.payload.AuthInfo;
+import com.ksilisk.chatservice.payload.request.AuthInfo;
 import com.ksilisk.chatservice.repository.UserRepository;
 import com.ksilisk.chatservice.security.TokenProvider;
 import com.ksilisk.chatservice.service.AuthService;

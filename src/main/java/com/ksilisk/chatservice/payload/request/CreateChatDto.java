@@ -1,4 +1,4 @@
-package com.ksilisk.chatservice.payload;
+package com.ksilisk.chatservice.payload.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

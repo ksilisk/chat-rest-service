@@ -1,13 +1,15 @@
 package com.ksilisk.chatservice.controller;
 
-import com.ksilisk.chatservice.payload.MessageInfo;
-import com.ksilisk.chatservice.payload.SendMessageDto;
+import com.ksilisk.chatservice.payload.response.MessageInfo;
+import com.ksilisk.chatservice.payload.request.SendMessageDto;
 import com.ksilisk.chatservice.service.MessageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Messages")
 @RestController
 @RequestMapping("/api/v1/messages")
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class MessageController {
     }
 
     @PostMapping
-    public void sendMessage(@RequestBody @Valid SendMessageDto messageDto, JwtAuthenticationToken authenticationToken) {
-        messageService.send(messageDto, authenticationToken);
+    public MessageInfo sendMessage(@RequestBody @Valid SendMessageDto messageDto, JwtAuthenticationToken authenticationToken) {
+        return messageService.send(messageDto, authenticationToken);
     }
 }

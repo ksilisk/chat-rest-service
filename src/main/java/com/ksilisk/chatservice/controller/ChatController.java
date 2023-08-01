@@ -1,8 +1,9 @@
 package com.ksilisk.chatservice.controller;
 
-import com.ksilisk.chatservice.payload.ChatInfo;
-import com.ksilisk.chatservice.payload.CreateChatDto;
+import com.ksilisk.chatservice.payload.request.CreateChatDto;
+import com.ksilisk.chatservice.payload.response.ChatInfo;
 import com.ksilisk.chatservice.service.ChatService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+@Tag(name = "Chats")
 @RestController
 @RequestMapping("/api/v1/chats")
 @RequiredArgsConstructor
@@ -27,8 +29,8 @@ public class ChatController {
     }
 
     @PostMapping
-    public void createChat(@RequestBody @Valid CreateChatDto chatDto, JwtAuthenticationToken authenticationToken) {
-        chatService.createChat(chatDto, authenticationToken);
+    public ChatInfo createChat(@RequestBody @Valid CreateChatDto chatDto, JwtAuthenticationToken authenticationToken) {
+        return chatService.createChat(chatDto, authenticationToken);
     }
 
     @DeleteMapping("/{chatId}")
