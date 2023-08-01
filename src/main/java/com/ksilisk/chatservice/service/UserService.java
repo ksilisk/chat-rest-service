@@ -1,9 +1,9 @@
 package com.ksilisk.chatservice.service;
 
-import com.ksilisk.chatservice.payload.UserDto;
+import com.ksilisk.chatservice.payload.response.UserInfo;
 
 public interface UserService {
-    UserDto getUserById(long id);
+    UserInfo getUserById(long id);
 
-    UserDto getUserByUsername(String username);
+    UserInfo getUserByUsername(String username);
 }

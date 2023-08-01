@@ -1,7 +1,8 @@
 package com.ksilisk.chatservice.controller;
 
-import com.ksilisk.chatservice.payload.UserDto;
+import com.ksilisk.chatservice.payload.response.UserInfo;
 import com.ksilisk.chatservice.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
+@Tag(name = "Users")
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
@@ -17,12 +19,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable int id) {
+    public UserInfo getUser(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/me")
-    public UserDto getMyInfo(Principal principal) {
+    public UserInfo getMyInfo(Principal principal) {
         return userService.getUserByUsername(principal.getName());
     }
 }

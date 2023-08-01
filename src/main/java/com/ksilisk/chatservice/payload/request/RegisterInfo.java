@@ -1,4 +1,4 @@
-package com.ksilisk.chatservice.payload;
+package com.ksilisk.chatservice.payload.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,6 +18,5 @@ public class RegisterInfo {
     private String password;
 
     @Email
-    @NotEmpty(message = "Email should not be null or empty")
     private String email;
 }

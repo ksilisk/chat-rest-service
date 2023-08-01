@@ -1,4 +1,4 @@
-package com.ksilisk.chatservice.payload;
+package com.ksilisk.chatservice.payload.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SendMessageDto {
-    @NotEmpty(message = "Message text shouldn't be null or empty")
+    @NotEmpty
     private String text;
     private long chatId;
 }
