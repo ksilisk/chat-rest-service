@@ -5,7 +5,7 @@
 * [Tests](#tests)
 * [Documentation](#documentation)
 ## Description
-REST-service for a simple chat with JWT-authentication
+REST API for simple chat with JWT-authentication
 
 ### Tech stack
 * Java 17
