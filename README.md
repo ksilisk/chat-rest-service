@@ -27,4 +27,9 @@ REST API for simple chat with JWT-authentication
 ## Tests
     $ ./mvnw test
 ## Documentation
+Documentation for the API is written using `Swagger`.
+
+Default Documentation Path `host:port/docs/swagger-ui.html`
+
+To override path to documentation, you need to change the parameter `springdoc.swagger-ui.path` in `application.yml`
 
