@@ -16,10 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @DataJpaTest
 class AuthServiceTest {
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     private UserRepository userRepository;
-
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Test
     void validAuthInfoTest_shouldAuthUser() {

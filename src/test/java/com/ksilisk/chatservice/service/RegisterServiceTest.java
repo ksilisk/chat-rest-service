@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @DataJpaTest
 class RegisterServiceTest {
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     private UserRepository userRepository;
-
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Test
     void newUserRegisterTest_shouldCreateUser() {
