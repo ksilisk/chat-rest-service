@@ -22,7 +22,7 @@ class AuthServiceTest {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Test
-    void validAuthInfoTest() {
+    void validAuthInfoTest_shouldAuthUser() {
         // given
         TokenProvider tokenProvider = Mockito.mock(TokenProvider.class);
         User user = User.builder()
